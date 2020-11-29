@@ -1,0 +1,107 @@
+/*
+Styles for site header
+----------------------
+
+Global styles
+*/
+
+.site-header {
+  background-color: #fff;
+  color: #4a69bd;
+  margin: 0;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  -webkit-box-shadow: 0px 1px 4px -2px #000000; 
+  box-shadow: 0px 1px 4px -2px #000000;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.header__title {
+  line-height: 1em;
+  padding: 15px;
+  margin: 0;
+  letter-spacing: 1.2px;
+  font-size: 1.5em;
+}
+
+.header__link {
+  text-decoration: none;
+  color: #4a69bd;
+}
+
+.header__nav {
+  width: 50%;
+}
+
+.header_nav_ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+.header_nav_li {
+  list-style-type: none;
+  padding: 0 20px;
+  text-transform: uppercase;
+}
+
+.header_nav_link {
+  font-weight: 700;
+  padding-bottom: 15px;
+}
+
+.header_nav_link:hover {
+  color: #4a69bd;
+  border-bottom: 3px solid #4a69bd;
+}
+
+/*
+Larger screen styles
+*/
+
+/* @media (min-width: 801px) {
+
+} */
+
+
+/*
+Mid-size screen styles
+*/
+
+/* @media (max-width: 800px) and (min-width: 451px) {
+
+} */
+
+
+/*
+Smaller screen styles
+*/
+
+@media (max-width: 450px) {
+
+  .site-header {
+    flex-direction: column;
+  }
+
+  .header__nav {
+    width: 100%;
+  }
+
+  .header__title {
+    margin: auto;
+  }
+
+  .header_nav_li {
+    margin: auto;
+  }
+
+}

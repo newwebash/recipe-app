@@ -1,0 +1,37 @@
+/*
+Styles for footer
+-----------------
+
+Global styles
+*/
+
+.footer {
+    background-color:  #f8f8f8;
+    color:#576574;
+    width: 100%;
+    border-top: 0.5px dotted #576574;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.footer_link {
+    color: #4a69bd;
+    text-decoration: none;
+}
+
+
+/*
+Mid-size screen styles
+*/
+
+
+/*
+Smaller screen styles
+*/
+
+/* @media (max-width: 450px) {
+
+
+
+} */
