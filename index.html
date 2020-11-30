@@ -69,11 +69,7 @@
             <ul>
               <li v-for="i in fetchIngredients">{{i}}</li>
             </ul>
-           </div>
-
-           
-
-
+           </div>        
 
         </section>
 
@@ -82,33 +78,13 @@
             {{nav2}}
           </header>
 
-          <div>
+          <div v-if="fetchSteps.length > 0" class="main-section__steps-list">
             <ol>
-              <li>{{}}</li>
+              <li v-for="s in fetchSteps">{{s}}</li>
             </ol>
           </div>
 
-          <p>Paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-            enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-            in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-            deserunt mollit anim id est laborum.
-          </p>
-          <p>How to do the thing:</p>
-          <ol>
-            <li>Do this</li>
-            <li>Do that</li>
-            <li>Run this
-              <p>
-                <code>cd path/to/dir</code>
-              </p>
-            </li>
-            <li>Do this other thing.
-              <p>Result</p>
-            </li>
-          </ol>
+          
         </section>
 
         
@@ -135,7 +111,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 
 <script>
-  var recipeMashedPotatoes = {
+  var currentRecipe = {
     "title": "Mashed Potatoes",
     "ingredients": ["6 medium potatoes", "1/2 cup milk"],
     "steps": ["Peel potatoes and slice into 1/2 inch cubes, then immerse in water in large pot and bring to a boil and let simmer for about 20 minutes or untile fork tender.",
@@ -149,13 +125,16 @@
   new Vue({
     el: '#app',
     data: {
-      recipeTitle: recipeMashedPotatoes.title,
+      recipeTitle: currentRecipe.title,
       nav1: 'Ingredients',
       nav2: 'Instructions',
     },
     computed: {
       fetchIngredients: function () {
-        return recipeMashedPotatoes.ingredients;
+        return currentRecipe.ingredients;
+      },
+      fetchSteps: function () {
+        return currentRecipe.steps;
       }
     }
   });
