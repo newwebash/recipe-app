@@ -43,7 +43,7 @@
 
       <nav id="navbar" class="side-nav">
         <header class="side-nav_header side-nav-content">
-          <a href="#topic-title" class="nav-link side-nav_nav-link">{{recipeTitle}}</a></header>
+          <a href="#topic-title" class="nav-link side-nav_nav-link">{{recipeInfo.title}}</a></header>
         <ul class="side-nav__ul side-nav-content">
           <li class="side-nav-li-h1">
             <a href="#section_1" class="nav-link side-nav_nav-link">{{nav1}}</a>
@@ -57,7 +57,9 @@
 
 
       <main id="main-doc" class="main">
-        <h2 id="topic-title" class="main-section__topic-title">{{recipeTitle}}</h2>
+        <h2 id="topic-title" class="main-section__topic-title">{{recipeInfo.title}}</h2>
+        <a href="#topic-title" class="nav-link side-nav_nav-link"></a></header>
+          <p>{{recipeInfo}}</p>
 
         <section id="section_1" class="main-section">
           <header class="main-section__description">
@@ -109,8 +111,12 @@
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
+  var apiKey = 'd416ba6dc52445f894be77a080a33dba';
+  var url = 'https://api.spoonacular.com/recipes/random?number=1&apiKey=' + apiKey;
+
   var currentRecipe = {
     "title": "Mashed Potatoes",
     "ingredients": ["6 medium potatoes", "1/2 cup milk"],
@@ -118,24 +124,38 @@
               "Strain water from pot, then put potatoes back in the pot and add the milk.",
               "Mash potatoes by hand or use hand blender. Serve piping hot."]    
   };
-</script>
-
-<script>
 
   new Vue({
-    el: '#app',
-    data: {
-      recipeTitle: currentRecipe.title,
-      nav1: 'Ingredients',
-      nav2: 'Instructions',
-    },
-    computed: {
-      fetchIngredients: function () {
-        return currentRecipe.ingredients;
+      el: '#app',
+      data: {
+        recipeInfo: null,
+        // recipeTitle: null,
+        nav1: 'Ingredients',
+        nav2: 'Instructions',
       },
-      fetchSteps: function () {
-        return currentRecipe.steps;
+      mounted () {
+        axios
+          .get(url)
+          .then(response => (this.recipeInfo = response.data.recipes[0]))
+          .catch(error => console.log(error))
+      },
+      computed: {
+        // fetchTitle: function () {
+        //   return recipeInfo.title
+        // },
+        fetchIngredients: function () {
+          return currentRecipe.ingredients;
+        },
+        fetchSteps: function () {
+          return currentRecipe.steps;
+        }
       }
-    }
+      // methods: {
+      //   getTitle: function () {
+      //     recipeTitle = recipeInfo.title;
+      //   }
+      // }
   });
+
+  
 </script>
