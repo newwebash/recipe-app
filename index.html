@@ -64,16 +64,30 @@
             {{nav1}}
           </header>
           
-          <ul v-for="i in fetchIngredients">
-            <li>{{i}}</li>
-          </ul>
-          
+
+           <div v-if="fetchIngredients.length > 0" class="main-section__ingredients-list">
+            <ul>
+              <li v-for="i in fetchIngredients">{{i}}</li>
+            </ul>
+           </div>
+
+           
+
+
+
         </section>
 
         <section id="section_2" class="main-section">
           <header class="main-section__description">
             {{nav2}}
           </header>
+
+          <div>
+            <ol>
+              <li>{{}}</li>
+            </ol>
+          </div>
+
           <p>Paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
             enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -124,9 +138,9 @@
   var recipeMashedPotatoes = {
     "title": "Mashed Potatoes",
     "ingredients": ["6 medium potatoes", "1/2 cup milk"],
-    "step1": "Peel potatoes and slice into 1/2 inch cubes, then immerse in water in large pot and bring to a boil and let simmer for about 20 minutes or untile fork tender.",
-    "step2": "Strain water from pot, then put potatoes back in the pot and add the milk.",
-    "step3": "Mash potatoes by hand or use hand blender. Serve piping hot."
+    "steps": ["Peel potatoes and slice into 1/2 inch cubes, then immerse in water in large pot and bring to a boil and let simmer for about 20 minutes or untile fork tender.",
+              "Strain water from pot, then put potatoes back in the pot and add the milk.",
+              "Mash potatoes by hand or use hand blender. Serve piping hot."]    
   };
 </script>
 
