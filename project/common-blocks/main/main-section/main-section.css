@@ -1,0 +1,62 @@
+/*
+Styles for main section
+-----------------------
+
+Global styles
+*/
+
+.main {
+    padding: 15px 15px 0 50px;
+    max-width: 60%;
+    font-size: 1.1em;
+    line-height: 1.6em;
+    
+}
+
+.main-section {
+    padding-bottom: 20px;
+    max-width: 650px;
+}
+
+.main-section__topic-title {
+    color:  #4a69bd;
+    font-size: 2.5em;
+    font-weight: 700;   
+}
+
+.main-section__description {
+    color:  #4a69bd;
+    font-size: 1.8em;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    line-height: 1.8em;
+    
+}
+
+
+
+/*
+Mid-size screen styles
+*/
+
+@media (max-width: 900px) {
+
+    .main {
+        padding: 0 25px;
+        max-width: 100%;
+        align-self: center;
+    }
+
+}
+
+/*
+Smaller screen styles
+*/
+
+@media (max-width: 450px) {
+
+    .main {
+        padding: 0 15px;
+    }
+
+}

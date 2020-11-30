@@ -1,0 +1,71 @@
+/*
+Styles for side navbar
+----------------------
+
+Global styles
+*/
+.side-nav {
+    background-color: #f8f8f8;
+    width: 270px;
+    font-size: 0.9em;
+}
+
+.side-nav-content {
+    margin: 0 auto;    
+}
+
+.side-nav_header {
+    font-size: 1.3em;
+    font-weight: 700;
+    color:  #4a69bd;
+    padding: 40px 15px 15px 35px;
+}
+
+.side-nav__ul {
+    padding: 15px 15px 15px 35px;
+}
+
+.side-nav-li-h1 {
+    list-style-type: none;
+    line-height: 2em;
+    padding: 10px 15px 10px 25px;
+    border-left: 1px solid  #4a69bd;
+}
+
+.side-nav-li-h1:hover {
+    background-color: #f0f0f0;
+}
+
+.side-nav_nav-link {
+    color:  #4a69bd;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.side-nav_nav-link:hover {
+    color: #4a69bd;
+}
+
+
+/*
+Mid-size screen styles
+*/
+
+@media (max-width: 900px) {
+    .side-nav {
+        max-height: 150px;
+        overflow: scroll;
+        width: 100%;
+    }
+}
+
+
+/*
+Smaller screen styles
+*/
+
+/* @media (max-width: 450px) {
+
+
+
+} */
