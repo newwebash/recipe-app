@@ -62,11 +62,7 @@
 
 
 
-          <p>{{recipeInfo}}</p>
-
-
-
-        
+          <p>{{recipeInfo}}</p>       
 
         <section id="section_1" class="main-section">
           <header class="main-section__description">
@@ -81,6 +77,11 @@
 
         </section>
 
+
+
+
+
+
         <section id="section_2" class="main-section">
           <header class="main-section__description">
             {{nav2}}
@@ -92,10 +93,15 @@
             </ol>
           </div>
 
+          <!-- <p>Steps: {{fetchSteps.toString()}}</p> -->
+
           
         </section>
 
         
+
+
+
 
       </main>
 
@@ -148,24 +154,33 @@
           return this.recipeInfo.title;
         },
         printIngredients: function() {
+          // Get number of ingredients
           var i = this.recipeInfo.extendedIngredients.length-1;
-          console.log("Printing i: " + i);
+          // Create empty array
           var myList = [];
-          console.log("Printing myList: " + myList.toString());
+          // Add each ingredient to the array
           while (i > 0) {
             myList.push(this.recipeInfo.extendedIngredients[i].original);
-            console.log("Printing myList: " + myList.toString());
             i--;
-            console.log("Printing i: " + i);
           }    
-          console.log("Printing myList before reversing: " + myList.toString());
           myList.reverse();
-          console.log("Printing myList after reversing: " + myList.toString());
           return myList;     
         },
         fetchSteps: function () {
-          return currentRecipe.steps;
-        }
+          // Get number of steps
+          var s = this.recipeInfo.analyzedInstructions[0].steps.length-1;
+          console.log("Printing s: " + s);
+          // Create empty list
+          var stepList = [];
+          console.log("Printing stepList: " + stepList.toString());
+          // Add each step to the list
+          while (s > 0) {
+            stepList.push(this.recipeInfo.analyzedInstructions[0].steps[s].step);
+            console.log("Printing stepList: " + stepList.toString());
+            s--;
+          }
+          return stepList;
+        },
       }
   });
 
