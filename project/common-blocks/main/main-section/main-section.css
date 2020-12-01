@@ -33,7 +33,16 @@ Global styles
     font-size: 24px;
     padding: 2% 5%;
     border-radius: 24px;
-    border-width: 0;
+    border: 3px solid #4a69bd;
+}
+
+.main-section__button:hover {
+    background-color: #fdfdfd;
+    color: #4a69bd;
+}
+
+.main-section__button:active, .main-section__button:active:after, .main-section__button:focus {
+    outline: none;
 }
 
 .main-section__topic-title {
