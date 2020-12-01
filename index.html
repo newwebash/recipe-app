@@ -73,9 +73,9 @@
             {{nav1}}
           </header>     
 
-           <div v-if="testPrintIngredients.length > 0" class="main-section__ingredients-list">
+           <div v-if="printIngredients.length > 0" class="main-section__ingredients-list">
             <ul>
-              <li v-for="i in testPrintIngredients">{{i}}</li>
+              <li v-for="i in printIngredients">{{i}}</li>
             </ul>
            </div>        
 
@@ -149,7 +149,7 @@
         recipeTitle: function () {
           return this.recipeInfo.title;
         },
-        testPrintIngredients: function() {
+        printIngredients: function() {
           var i = this.recipeInfo.extendedIngredients.length-1;
           console.log("Printing i: " + i);
           var myList = [];
@@ -161,26 +161,6 @@
             console.log("Printing i: " + i);
           }    
           return myList;     
-        },
-        fetchIngredients: function () {
-          //return simplifyIngredients;
-          //ingredientsTestList = simplifyIngredients();
-          console.log("called fetchIngredients");
-          // Get super long overly-details ingredient data (array)
-          var extendedIngredients = this.recipeInfo.extendedIngredients;
-          // Create empty array to store ingredients
-          var listOfIngredients = [];
-          // Check if extendedIngredients contains anything
-          if (extendedIngredients > 0) {
-            // for every ingredient in the original array
-            for (var i=0; i < extendedIngredients.length; i++) {
-              // Get the simple ingredient name at this index
-              var simpleIngredient = extendedIngredients[i].original;
-              // Add the simple ingredient name to the new array
-              listOfIngredients.push(simpleIngredient);
-            }
-          }
-          ingredientsTestList = listOfIngredients;
         },
         fetchSteps: function () {
           return currentRecipe.steps;
