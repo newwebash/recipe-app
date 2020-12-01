@@ -59,17 +59,23 @@
       <main id="main-doc" class="main">
         <h2 id="topic-title" class="main-section__topic-title">{{recipeInfo.title}}</h2>
         <a href="#topic-title" class="nav-link side-nav_nav-link"></a></header>
+
+
+
           <p>{{recipeInfo}}</p>
+
+
+
+        
 
         <section id="section_1" class="main-section">
           <header class="main-section__description">
             {{nav1}}
-          </header>
-          
+          </header>     
 
-           <div v-if="fetchIngredients.length > 0" class="main-section__ingredients-list">
+           <div v-if="testPrintIngredients.length > 0" class="main-section__ingredients-list">
             <ul>
-              <li v-for="i in fetchIngredients">{{i}}</li>
+              <li v-for="i in testPrintIngredients">{{i}}</li>
             </ul>
            </div>        
 
@@ -129,7 +135,7 @@
       el: '#app',
       data: {
         recipeInfo: null,
-        // recipeTitle: null,
+        ingredientsTestList: [],
         nav1: 'Ingredients',
         nav2: 'Instructions',
       },
@@ -140,21 +146,46 @@
           .catch(error => console.log(error))
       },
       computed: {
-        // fetchTitle: function () {
-        //   return recipeInfo.title
-        // },
+        recipeTitle: function () {
+          return this.recipeInfo.title;
+        },
+        testPrintIngredients: function() {
+          var i = this.recipeInfo.extendedIngredients.length-1;
+          console.log("Printing i: " + i);
+          var myList = [];
+          console.log("Printing myList: " + myList.toString());
+          while (i > 0) {
+            myList[i] = this.recipeInfo.extendedIngredients[i].original;
+            console.log("Printing myList[i]: " + myList[i]);
+            i--;
+            console.log("Printing i: " + i);
+          }    
+          return myList;     
+        },
         fetchIngredients: function () {
-          return currentRecipe.ingredients;
+          //return simplifyIngredients;
+          //ingredientsTestList = simplifyIngredients();
+          console.log("called fetchIngredients");
+          // Get super long overly-details ingredient data (array)
+          var extendedIngredients = this.recipeInfo.extendedIngredients;
+          // Create empty array to store ingredients
+          var listOfIngredients = [];
+          // Check if extendedIngredients contains anything
+          if (extendedIngredients > 0) {
+            // for every ingredient in the original array
+            for (var i=0; i < extendedIngredients.length; i++) {
+              // Get the simple ingredient name at this index
+              var simpleIngredient = extendedIngredients[i].original;
+              // Add the simple ingredient name to the new array
+              listOfIngredients.push(simpleIngredient);
+            }
+          }
+          ingredientsTestList = listOfIngredients;
         },
         fetchSteps: function () {
           return currentRecipe.steps;
         }
       }
-      // methods: {
-      //   getTitle: function () {
-      //     recipeTitle = recipeInfo.title;
-      //   }
-      // }
   });
 
   
