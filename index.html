@@ -58,7 +58,7 @@
 
       <main id="main-doc" class="main">
         <section class="main-section main-section__button-container">
-          <button class="main-section__button">Get Random Recipe</button>
+          <button type="submit" @click="getRandomRecipe" class="main-section__button">Get Random Recipe</button>
         </section>
 
         <h2 id="topic-title" class="main-section__topic-title">{{recipeInfo.title}}</h2>
@@ -125,15 +125,11 @@
       el: '#app',
       data: {
         recipeInfo: null,
-        ingredientsTestList: [],
         nav1: 'Ingredients',
         nav2: 'Instructions',
       },
-      mounted () {
-        axios
-          .get(url)
-          .then(response => (this.recipeInfo = response.data.recipes[0]))
-          .catch(error => console.log(error))
+      created: function () {
+        this.getRandomRecipe();
       },
       computed: {
         recipeTitle: function () {
@@ -165,6 +161,14 @@
           stepList.reverse();
           return stepList;
         },
+      },
+      methods: {
+        getRandomRecipe: function () {
+          axios
+            .get(url)
+            .then(response => (this.recipeInfo = response.data.recipes[0]))
+            .catch(error => console.log(error));
+        }
       }
   });
 
