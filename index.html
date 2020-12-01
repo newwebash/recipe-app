@@ -59,10 +59,7 @@
       <main id="main-doc" class="main">
         <h2 id="topic-title" class="main-section__topic-title">{{recipeInfo.title}}</h2>
         <a href="#topic-title" class="nav-link side-nav_nav-link"></a></header>
-
-
-
-          <p>{{recipeInfo}}</p>       
+    
 
         <section id="section_1" class="main-section">
           <header class="main-section__description">
@@ -78,10 +75,6 @@
         </section>
 
 
-
-
-
-
         <section id="section_2" class="main-section">
           <header class="main-section__description">
             {{nav2}}
@@ -93,14 +86,8 @@
             </ol>
           </div>
 
-          <!-- <p>Steps: {{fetchSteps.toString()}}</p> -->
-
           
         </section>
-
-        
-
-
 
 
       </main>
@@ -128,12 +115,6 @@
 <script>
   var apiKey = 'd416ba6dc52445f894be77a080a33dba';
   var url = 'https://api.spoonacular.com/recipes/random?number=1&apiKey=' + apiKey;
-
-  var currentRecipe = {    
-    "steps": ["Peel potatoes and slice into 1/2 inch cubes, then immerse in water in large pot and bring to a boil and let simmer for about 20 minutes or untile fork tender.",
-              "Strain water from pot, then put potatoes back in the pot and add the milk.",
-              "Mash potatoes by hand or use hand blender. Serve piping hot."]    
-  };
 
   new Vue({
       el: '#app',
@@ -169,16 +150,14 @@
         fetchSteps: function () {
           // Get number of steps
           var s = this.recipeInfo.analyzedInstructions[0].steps.length-1;
-          console.log("Printing s: " + s);
           // Create empty list
           var stepList = [];
-          console.log("Printing stepList: " + stepList.toString());
           // Add each step to the list
           while (s > 0) {
             stepList.push(this.recipeInfo.analyzedInstructions[0].steps[s].step);
-            console.log("Printing stepList: " + stepList.toString());
             s--;
           }
+          stepList.reverse();
           return stepList;
         },
       }
