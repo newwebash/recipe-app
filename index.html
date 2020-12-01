@@ -57,6 +57,10 @@
 
 
       <main id="main-doc" class="main">
+        <section class="main-section main-section__button-container">
+          <button type="submit" @click="getRandomRecipe" class="main-section__button">Get Random Recipe</button>
+        </section>
+
         <h2 id="topic-title" class="main-section__topic-title">{{recipeInfo.title}}</h2>
         <a href="#topic-title" class="nav-link side-nav_nav-link"></a></header>
     
@@ -97,6 +101,7 @@
         <p class="footer__p">
           Copyright 2020 <a href="https://www.linkedin.com/in/ashley-newton-00131255/" class="footer_link">Ashley Newton</a>
         </p>
+        <p class="footer__p">Powered by <a href="https://spoonacular.com/food-api" class="footer_link">Spoonacular</a></p>
         <p class="footer__p"><a href="#" class="footer_link">Privacy policy</a></p>
       </footer>
 
@@ -120,15 +125,11 @@
       el: '#app',
       data: {
         recipeInfo: null,
-        ingredientsTestList: [],
         nav1: 'Ingredients',
         nav2: 'Instructions',
       },
-      mounted () {
-        axios
-          .get(url)
-          .then(response => (this.recipeInfo = response.data.recipes[0]))
-          .catch(error => console.log(error))
+      created: function () {
+        this.getRandomRecipe();
       },
       computed: {
         recipeTitle: function () {
@@ -160,6 +161,14 @@
           stepList.reverse();
           return stepList;
         },
+      },
+      methods: {
+        getRandomRecipe: function () {
+          axios
+            .get(url)
+            .then(response => (this.recipeInfo = response.data.recipes[0]))
+            .catch(error => console.log(error));
+        }
       }
   });
 
