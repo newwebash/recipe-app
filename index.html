@@ -123,9 +123,7 @@
   var apiKey = 'd416ba6dc52445f894be77a080a33dba';
   var url = 'https://api.spoonacular.com/recipes/random?number=1&apiKey=' + apiKey;
 
-  var currentRecipe = {
-    "title": "Mashed Potatoes",
-    "ingredients": ["6 medium potatoes", "1/2 cup milk"],
+  var currentRecipe = {    
     "steps": ["Peel potatoes and slice into 1/2 inch cubes, then immerse in water in large pot and bring to a boil and let simmer for about 20 minutes or untile fork tender.",
               "Strain water from pot, then put potatoes back in the pot and add the milk.",
               "Mash potatoes by hand or use hand blender. Serve piping hot."]    
@@ -155,11 +153,14 @@
           var myList = [];
           console.log("Printing myList: " + myList.toString());
           while (i > 0) {
-            myList[i] = this.recipeInfo.extendedIngredients[i].original;
-            console.log("Printing myList[i]: " + myList[i]);
+            myList.push(this.recipeInfo.extendedIngredients[i].original);
+            console.log("Printing myList: " + myList.toString());
             i--;
             console.log("Printing i: " + i);
           }    
+          console.log("Printing myList before reversing: " + myList.toString());
+          myList.reverse();
+          console.log("Printing myList after reversing: " + myList.toString());
           return myList;     
         },
         fetchSteps: function () {
