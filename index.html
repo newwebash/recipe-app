@@ -61,9 +61,15 @@
           <button type="submit" @click="getRandomRecipe" class="main-section__button">Get Random Recipe</button>
         </section>
 
+
+
+
         <h2 id="topic-title" class="main-section__topic-title">{{recipeInfo.title}}</h2>
         <a href="#topic-title" class="nav-link side-nav_nav-link"></a></header>
     
+
+
+
 
         <section id="section_1" class="main-section">
           <header class="main-section__description">
@@ -74,9 +80,10 @@
             <ul>
               <li v-for="i in printIngredients">{{i}}</li>
             </ul>
-           </div>        
-
+           </div>   
         </section>
+
+
 
 
         <section id="section_2" class="main-section">
@@ -88,10 +95,10 @@
             <ol>
               <li v-for="s in fetchSteps">{{s}}</li>
             </ol>
-          </div>
-
-          
+          </div>          
         </section>
+
+        <recipe-element></recipe-element>
 
 
       </main>
@@ -118,6 +125,20 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
+  Vue.component('recipe-element', {
+    template: '<section class="main-section"> \
+                <header  class="main-section__description">\
+                  Section heading\
+                </header>\
+                \
+                <div class="main-section__ingredients-list">\
+                  <ul>\
+                    <li>Section list and list item</li>\
+                  </ul>\
+                </div>\
+            </section>'                          
+  });
+
   var apiKey = 'd416ba6dc52445f894be77a080a33dba';
   var url = 'https://api.spoonacular.com/recipes/random?number=1&apiKey=' + apiKey;
 
