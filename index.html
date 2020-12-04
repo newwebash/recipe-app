@@ -130,12 +130,16 @@
       {{name}}
     </header>
     
-    <div class="main-section__ingredients-list">
-      <ul>
-        <li>Section list and list item</li>
-      </ul>
-    </div>
-</section>
+    <recipe-element-list></recipe-element-list>
+  </section>
+</script>
+
+<script type="text/x-template" id="recipe-element-list">
+  <div class="main-section__list">
+    <ul>
+      <li>Section list and list item</li>
+    </ul>
+  </div>
 </script>
 
 <script>
@@ -145,8 +149,12 @@
       name: {
         type: String
       }
-    }                          
-  });
+    }                        
+  })
+
+  Vue.component('recipe-element-list', {
+    template: '#recipe-element-list'
+  })
 
   var apiKey = 'd416ba6dc52445f894be77a080a33dba';
   var url = 'https://api.spoonacular.com/recipes/random?number=1&apiKey=' + apiKey;
