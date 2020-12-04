@@ -98,7 +98,7 @@
           </div>          
         </section>
 
-        <recipe-element name="Recipe Details"></recipe-element>
+        <recipe-element v-for="recSec in recipeSections" :name="recSec"></recipe-element>
 
 
       </main>
@@ -124,20 +124,28 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+<script type="text/x-template" id="recipe-element">
+  <section class="main-section"> 
+    <header  class="main-section__description">
+      {{name}}
+    </header>
+    
+    <div class="main-section__ingredients-list">
+      <ul>
+        <li>Section list and list item</li>
+      </ul>
+    </div>
+</section>
+</script>
+
 <script>
   Vue.component('recipe-element', {
-    template: '<section class="main-section"> \
-                <header  class="main-section__description">\
-                  {{name}}\
-                </header>\
-                \
-                <div class="main-section__ingredients-list">\
-                  <ul>\
-                    <li>Section list and list item</li>\
-                  </ul>\
-                </div>\
-            </section>',
-    props: ['name']                          
+    template: '#recipe-element',
+    props: {
+      name: {
+        type: String
+      }
+    }                          
   });
 
   var apiKey = 'd416ba6dc52445f894be77a080a33dba';
@@ -149,6 +157,7 @@
         recipeInfo: null,
         nav1: 'Ingredients',
         nav2: 'Instructions',
+        recipeSections: ['Ingredients', 'Instructions']
       },
       created: function () {
         this.getRandomRecipe();
