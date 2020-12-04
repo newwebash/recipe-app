@@ -55,14 +55,15 @@ Global styles
 }
 
 .header_nav_link {
-  font-weight: 700;
-  padding-bottom: 15px;
+  /* font-weight: 700;
+  padding-bottom: 15px; */
+  display: none;
 }
 
-.header_nav_link:hover {
+/* .header_nav_link:hover {
   color: #4a69bd;
   border-bottom: 3px solid #4a69bd;
-}
+} */
 
 /*
 Larger screen styles
