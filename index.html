@@ -41,6 +41,9 @@
 
     <div class="wrapper">
 
+
+
+
       <nav id="navbar" class="side-nav">
         <header class="side-nav_header side-nav-content">
           <a href="#topic-title" class="nav-link side-nav_nav-link">{{recipeInfo.title}}</a></header>
@@ -50,10 +53,15 @@
           </li>
           <li class="side-nav-li-h1">
             <a href="#section_2" class="nav-link side-nav_nav-link">{{nav2}}</a>
-          </li>
-          
+          </li>          
         </ul>
+
+
+        <page-nav v-for="recSec in recipeSections" :name="recSec"></page-nav>
       </nav>
+
+
+
 
 
       <main id="main-doc" class="main">
@@ -98,7 +106,7 @@
           </div>          
         </section>
 
-        <recipe-element></recipe-element>
+        <recipe-element v-for="recSec in recipeSections" :name="recSec"></recipe-element>
 
 
       </main>
@@ -124,38 +132,72 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+<script type="text/x-template" id="page-nav">
+
+    <ul class="side-nav__ul side-nav-content">
+      <li class="side-nav-li-h1">
+        <a href="#" class="nav-link side-nav_nav-link">{{name}}</a>
+      </li>      
+    </ul>
+
+</script>
+
+<script type="text/x-template" id="recipe-element">
+  <section class="main-section"> 
+    <header  class="main-section__description">
+      {{name}}
+    </header>
+    
+    <recipe-element-list></recipe-element-list>
+  </section>
+</script>
+
+<script type="text/x-template" id="recipe-element-list">
+  <div class="main-section__list">
+    <ul>
+      <li>Section list and list item</li>
+    </ul>
+  </div>
+</script>
+
 <script>
+  Vue.component('page-nav', {
+    template: '#page-nav',
+    props: {
+      name: {
+        type: String
+      }
+    }
+  })
+
   Vue.component('recipe-element', {
-    template: '<section class="main-section"> \
-                <header  class="main-section__description">\
-                  Section heading\
-                </header>\
-                \
-                <div class="main-section__ingredients-list">\
-                  <ul>\
-                    <li>Section list and list item</li>\
-                  </ul>\
-                </div>\
-            </section>'                          
-  });
+    template: '#recipe-element',
+    props: {
+      name: {
+        type: String
+      }
+    }                        
+  })
+
+  Vue.component('recipe-element-list', {
+    template: '#recipe-element-list'
+  })
 
   var apiKey = 'd416ba6dc52445f894be77a080a33dba';
   var url = 'https://api.spoonacular.com/recipes/random?number=1&apiKey=' + apiKey;
 
-  new Vue({
+  var vm = new Vue({
       el: '#app',
       data: {
         recipeInfo: null,
         nav1: 'Ingredients',
         nav2: 'Instructions',
+        recipeSections: ['Ingredients', 'Instructions']
       },
       created: function () {
         this.getRandomRecipe();
       },
       computed: {
-        recipeTitle: function () {
-          return this.recipeInfo.title;
-        },
         printIngredients: function() {
           // Get number of ingredients
           var i = this.recipeInfo.extendedIngredients.length-1;
