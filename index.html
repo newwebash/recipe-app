@@ -98,7 +98,7 @@
           </div>          
         </section>
 
-        <recipe-element></recipe-element>
+        <recipe-element name="Recipe Details"></recipe-element>
 
 
       </main>
@@ -128,7 +128,7 @@
   Vue.component('recipe-element', {
     template: '<section class="main-section"> \
                 <header  class="main-section__description">\
-                  Section heading\
+                  {{name}}\
                 </header>\
                 \
                 <div class="main-section__ingredients-list">\
@@ -136,7 +136,8 @@
                     <li>Section list and list item</li>\
                   </ul>\
                 </div>\
-            </section>'                          
+            </section>',
+    props: ['name']                          
   });
 
   var apiKey = 'd416ba6dc52445f894be77a080a33dba';
