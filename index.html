@@ -41,6 +41,9 @@
 
     <div class="wrapper">
 
+
+
+
       <nav id="navbar" class="side-nav">
         <header class="side-nav_header side-nav-content">
           <a href="#topic-title" class="nav-link side-nav_nav-link">{{recipeInfo.title}}</a></header>
@@ -50,10 +53,15 @@
           </li>
           <li class="side-nav-li-h1">
             <a href="#section_2" class="nav-link side-nav_nav-link">{{nav2}}</a>
-          </li>
-          
+          </li>          
         </ul>
+
+
+        <page-nav v-for="recSec in recipeSections" :name="recSec"></page-nav>
       </nav>
+
+
+
 
 
       <main id="main-doc" class="main">
@@ -124,6 +132,16 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+<script type="text/x-template" id="page-nav">
+
+    <ul class="side-nav__ul side-nav-content">
+      <li class="side-nav-li-h1">
+        <a href="#" class="nav-link side-nav_nav-link">{{name}}</a>
+      </li>      
+    </ul>
+
+</script>
+
 <script type="text/x-template" id="recipe-element">
   <section class="main-section"> 
     <header  class="main-section__description">
@@ -143,6 +161,15 @@
 </script>
 
 <script>
+  Vue.component('page-nav', {
+    template: '#page-nav',
+    props: {
+      name: {
+        type: String
+      }
+    }
+  })
+
   Vue.component('recipe-element', {
     template: '#recipe-element',
     props: {
@@ -171,9 +198,6 @@
         this.getRandomRecipe();
       },
       computed: {
-        recipeTitle: function () {
-          return this.recipeInfo.title;
-        },
         printIngredients: function() {
           // Get number of ingredients
           var i = this.recipeInfo.extendedIngredients.length-1;
