@@ -58,7 +58,7 @@
         </ul>
 
 
-        <page-nav v-for="recSec in recipeSections" :name="recSec"></page-nav>
+        <!-- <page-nav v-for="recSec in recipeSections" :name="recSec"></page-nav> -->
       </nav>
 
 
@@ -78,10 +78,8 @@
     
 
         <section class="main-section info-tags">
-          About this recipe: 
-          <recipe-info-tag 
-            name="test tag"
-          ></recipe-info-tag>
+          About this recipe:           
+          <recipe-info-tag v-for="type in typesList" :testtagname="type"></recipe-info-tag>
         </section>
 
 
@@ -112,7 +110,7 @@
           </div>          
         </section>
 
-        <recipe-element v-for="recSec in recipeSections" :name="recSec"></recipe-element>
+        <!-- <recipe-element v-for="recSec in recipeSections" :name="recSec"></recipe-element> -->
 
 
       </main>
@@ -168,7 +166,7 @@
 
 <script type="text/x-template" id="recipe-info-tag">
 
-  <span class="badge badge-pill badge-primary">{{name}}</span>
+  <span class="badge badge-pill badge-info">{{testtagname}}</span>
 
 </script>
 
@@ -179,10 +177,10 @@
       type: {
         type: String
       },
-      name: {
+      testtagname: {
         type: String
       }
-    }    
+    }   
   })
 
   Vue.component('page-nav', {
@@ -216,11 +214,17 @@
         recipeInfo: null,
         nav1: 'Ingredients',
         nav2: 'Instructions',
-        recipeSections: ['Ingredients', 'Instructions']
+        recipeSections: ['Ingredients', 'Instructions'],
+        typesList: []
       },
       created: function () {
         this.getRandomRecipe();
       },
+      // mounted: {
+      //   getTags: function () {
+      //     this.typesList = fetchTags;
+      //   }
+      // },
       computed: {
         printIngredients: function() {
           // Get number of ingredients
@@ -248,6 +252,15 @@
           stepList.reverse();
           return stepList;
         },
+        fetchTags: function () {
+          // Get number of dishTypes provided
+          var numDishTypes = this.recipeInfo.dishTypes.length-1;
+          // Add each dish type to typesList
+          while (numDishTypes > 0) {
+            this.typesList.push(this.recipeInfo.dishTypes[numDishTypes]);
+            numDishTypes--;
+          }
+        }
       },
       methods: {
         getRandomRecipe: function () {
