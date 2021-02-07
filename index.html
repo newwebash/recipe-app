@@ -78,7 +78,10 @@
     
 
         <section class="main-section info-tags">
-
+          About this recipe: 
+          <recipe-info-tag 
+            name="test tag"
+          ></recipe-info-tag>
         </section>
 
 
@@ -163,7 +166,25 @@
   </div>
 </script>
 
+<script type="text/x-template" id="recipe-info-tag">
+
+  <span class="badge badge-pill badge-primary">{{name}}</span>
+
+</script>
+
 <script>
+  Vue.component('recipe-info-tag', {
+    template: '#recipe-info-tag',
+    props: {
+      type: {
+        type: String
+      },
+      name: {
+        type: String
+      }
+    }    
+  })
+
   Vue.component('page-nav', {
     template: '#page-nav',
     props: {
