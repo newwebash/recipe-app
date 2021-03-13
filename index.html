@@ -24,20 +24,7 @@
 
 <div id="app"  v-cloak >
   <body>
-    <header class="site-header">
-      <h1 class="header__title"><a href="#main-doc" class="header__link">Sizzlr</a></h1>
-
-      <nav id="top-nav" class="header__nav">
-        <ul class="header_nav_ul">
-          <li class="header_nav_li">
-            <a href="#" class="nav-link header_nav_link header__link">
-              Site 1
-            </a>
-          </li>
-          <li class="header_nav_li"><a href="#" class="nav-link header_nav_link header__link">Site 2</a></li>
-        </ul>
-      </nav>
-    </header>
+    <site-header :app-title="title"></site-header>
 
     <div class="wrapper">
 
@@ -132,6 +119,8 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+
+
 <script type="text/x-template" id="page-nav">
 
     <ul class="side-nav__ul side-nav-content">
@@ -160,7 +149,40 @@
   </div>
 </script>
 
+<script type="text/x-template" id="recipe-info-tag">
+
+  <span class="badge badge-pill badge-info">{{testtagname}}</span>
+
+</script>
+
+<script type="text/x-template" id="site-header">
+  <header class="site-header">
+    <h1 class="header__title"><a href="#main-doc" class="header__link">{{appTitle}}</a></h1>
+  </header>
+</script>
+
 <script>
+  Vue.component('site-header', {
+      template: '#site-header',
+      props: {
+        appTitle: {
+          type: String
+        }
+      }
+    })
+
+  Vue.component('recipe-info-tag', {
+    template: '#recipe-info-tag',
+    props: {
+      type: {
+        type: String
+      },
+      testtagname: {
+        type: String
+      }
+    }   
+  })
+
   Vue.component('page-nav', {
     template: '#page-nav',
     props: {
@@ -189,13 +211,18 @@
   var vm = new Vue({
       el: '#app',
       data: {
-        recipeInfo: null,
+        title: "Sizzler",
+        recipeInfo: {},
         nav1: 'Ingredients',
         nav2: 'Instructions',
         recipeSections: ['Ingredients', 'Instructions']
       },
       created: function () {
-        this.getRandomRecipe();
+        // Get initial recipe
+        axios
+          .get(url)
+          .then(response => (this.recipeInfo = response.data.recipes[0]))
+          .catch(error => console.log(error));
       },
       computed: {
         printIngredients: function() {
