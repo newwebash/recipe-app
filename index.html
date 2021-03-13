@@ -59,24 +59,13 @@
           :list-items="printIngredients"
         ></recipe-element>
 
-
-
-
-        <section id="section_2" class="main-section">
-          <header class="main-section__description">
-            {{instructionsSectionTitle}}
-          </header>
-
-          <div v-if="fetchSteps.length > 0" class="main-section__steps-list">
-            <ol>
-              <li v-for="s in fetchSteps">{{s}}</li>
-            </ol>
-          </div>          
-        </section>
-
-        
-
-
+        <recipe-element
+          :name="instructionsSectionTitle"
+          :id="instructionsSectionTitle"
+          :section-type="'ordered-list'"
+          :list-items="fetchSteps"
+        ></recipe-element>
+      
       </main>
 
 
@@ -100,9 +89,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-
-
-
 <script type="text/x-template" id="recipe-info-tag">
 
   <span class="badge badge-pill badge-info">{{testtagname}}</span>
@@ -124,6 +110,9 @@
     <ul v-if="sectionType == 'unordered-list'">
       <li v-for="item in listItems">{{ item }}</li>
     </ul>    
+    <ol v-else>
+      <li v-for="item in listItems">{{ item }}</li>
+    </ol>
   </section>
 </script>
 
