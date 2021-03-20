@@ -25,94 +25,48 @@
 
 <div id="app"  v-cloak >
   <body>
-    <header class="site-header">
-      <h1 class="header__title"><a href="#main-doc" class="header__link">Sizzlr</a></h1>
-
-      <nav id="top-nav" class="header__nav">
-        <ul class="header_nav_ul">
-          <li class="header_nav_li">
-            <a href="#" class="nav-link header_nav_link header__link">
-              Site 1
-            </a>
-          </li>
-          <li class="header_nav_li"><a href="#" class="nav-link header_nav_link header__link">Site 2</a></li>
-        </ul>
-      </nav>
-    </header>
+    <site-header 
+      :app-title="title"
+    ></site-header>
 
     <div class="wrapper">
-
-
-
 
       <nav id="navbar" class="side-nav">
         <header class="side-nav_header side-nav-content">
           <a href="#topic-title" class="nav-link side-nav_nav-link">{{recipeInfo.title}}</a></header>
         <ul class="side-nav__ul side-nav-content">
           <li class="side-nav-li-h1">
-            <a href="#section_1" class="nav-link side-nav_nav-link">{{nav1}}</a>
+            <a href="#section_1" class="nav-link side-nav_nav-link">{{ingredientsSectionTitle}}</a>
           </li>
           <li class="side-nav-li-h1">
-            <a href="#section_2" class="nav-link side-nav_nav-link">{{nav2}}</a>
+            <a href="#section_2" class="nav-link side-nav_nav-link">{{instructionsSectionTitle}}</a>
           </li>          
         </ul>
-
-
-        <!-- <page-nav v-for="recSec in recipeSections" :name="recSec"></page-nav> -->
       </nav>
 
-
-
-
-
       <main id="main-doc" class="main">
+
         <section class="main-section main-section__button-container">
           <button type="submit" @click="getRandomRecipe" class="main-section__button">Get Random Recipe</button>
         </section>
 
 
+        <h2 id="topic-title" class="main-section__topic-title">{{recipeInfo.title}}</h2> 
 
+        <recipe-element
+          :name="ingredientsSectionTitle"
+          :id="ingredientsSectionTitle"
+          :section-type="'unordered-list'"
+          :list-items="printIngredients"
+        ></recipe-element>
 
-        <h2 id="topic-title" class="main-section__topic-title">{{recipeInfo.title}}</h2>
-        <a href="#topic-title" class="nav-link side-nav_nav-link"></a></header>
-    
-
-        <section class="main-section info-tags">
-          About this recipe:           
-          <recipe-info-tag v-for="type in typesList" :testtagname="type"></recipe-info-tag>
-        </section>
-
-
-        <section id="section_1" class="main-section">
-          <header class="main-section__description">
-            {{nav1}}
-          </header>     
-
-           <div v-if="printIngredients.length > 0" class="main-section__ingredients-list">
-            <ul>
-              <li v-for="i in printIngredients">{{i}}</li>
-            </ul>
-           </div>   
-        </section>
-
-
-
-
-        <section id="section_2" class="main-section">
-          <header class="main-section__description">
-            {{nav2}}
-          </header>
-
-          <div v-if="fetchSteps.length > 0" class="main-section__steps-list">
-            <ol>
-              <li v-for="s in fetchSteps">{{s}}</li>
-            </ol>
-          </div>          
-        </section>
-
-        <!-- <recipe-element v-for="recSec in recipeSections" :name="recSec"></recipe-element> -->
-
-
+        <recipe-element
+          :name="instructionsSectionTitle"
+          :id="instructionsSectionTitle"
+          :section-type="'ordered-list'"
+          :list-items="fetchSteps"
+        ></recipe-element>
+      
       </main>
 
 
@@ -136,14 +90,16 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-<script type="text/x-template" id="page-nav">
+<script type="text/x-template" id="recipe-info-tag">
 
-    <ul class="side-nav__ul side-nav-content">
-      <li class="side-nav-li-h1">
-        <a href="#" class="nav-link side-nav_nav-link">{{name}}</a>
-      </li>      
-    </ul>
+  <span class="badge badge-pill badge-info">{{testtagname}}</span>
 
+</script>
+
+<script type="text/x-template" id="site-header">
+  <header class="site-header">
+    <h1 class="header__title"><a href="#main-doc" class="header__link">{{appTitle}}</a></h1>
+  </header>
 </script>
 
 <script type="text/x-template" id="recipe-element">
@@ -151,17 +107,14 @@
     <header  class="main-section__description">
       {{name}}
     </header>
-    
-    <recipe-element-list></recipe-element-list>
-  </section>
-</script>
 
-<script type="text/x-template" id="recipe-element-list">
-  <div class="main-section__list">
-    <ul>
-      <li>Section list and list item</li>
-    </ul>
-  </div>
+    <ul v-if="sectionType == 'unordered-list'">
+      <li v-for="item in listItems">{{ item }}</li>
+    </ul>    
+    <ol v-else>
+      <li v-for="item in listItems">{{ item }}</li>
+    </ol>
+  </section>
 </script>
 
 <script type="text/x-template" id="recipe-info-tag">
@@ -171,6 +124,32 @@
 </script>
 
 <script>
+  Vue.component('recipe-element', {
+    template: '#recipe-element',
+
+    props: {
+      name: {
+        type: String
+      },
+      sectionType: {
+        type: String // options: ordered-list, unordered-list
+      },
+      listItems: {
+        type: Array
+      }
+    }                        
+  })
+
+
+  Vue.component('site-header', {
+      template: '#site-header',
+      props: {
+        appTitle: {
+          type: String
+        }
+      }
+    })
+
   Vue.component('recipe-info-tag', {
     template: '#recipe-info-tag',
     props: {
@@ -183,27 +162,6 @@
     }   
   })
 
-  Vue.component('page-nav', {
-    template: '#page-nav',
-    props: {
-      name: {
-        type: String
-      }
-    }
-  })
-
-  Vue.component('recipe-element', {
-    template: '#recipe-element',
-    props: {
-      name: {
-        type: String
-      }
-    }                        
-  })
-
-  Vue.component('recipe-element-list', {
-    template: '#recipe-element-list'
-  })
 
   var apiKey = 'd416ba6dc52445f894be77a080a33dba';
   var url = 'https://api.spoonacular.com/recipes/random?number=1&apiKey=' + apiKey;
@@ -211,20 +169,19 @@
   var vm = new Vue({
       el: '#app',
       data: {
-        recipeInfo: null,
-        nav1: 'Ingredients',
-        nav2: 'Instructions',
-        recipeSections: ['Ingredients', 'Instructions'],
-        typesList: []
+        title: "Sizzler",
+        recipeInfo: {},
+        ingredientsSectionTitle: 'Ingredients',
+        instructionsSectionTitle: 'Instructions',
+        recipeSections: ['Ingredients', 'Instructions']
       },
       created: function () {
-        this.getRandomRecipe();
+        // Get initial recipe
+        axios
+          .get(url)
+          .then(response => (this.recipeInfo = response.data.recipes[0]))
+          .catch(error => console.log(error));
       },
-      // mounted: {
-      //   getTags: function () {
-      //     this.typesList = fetchTags;
-      //   }
-      // },
       computed: {
         printIngredients: function() {
           // Get number of ingredients
@@ -252,15 +209,6 @@
           stepList.reverse();
           return stepList;
         },
-        fetchTags: function () {
-          // Get number of dishTypes provided
-          var numDishTypes = this.recipeInfo.dishTypes.length-1;
-          // Add each dish type to typesList
-          while (numDishTypes > 0) {
-            this.typesList.push(this.recipeInfo.dishTypes[numDishTypes]);
-            numDishTypes--;
-          }
-        }
       },
       methods: {
         getRandomRecipe: function () {
